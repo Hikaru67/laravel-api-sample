@@ -14,6 +14,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::group(['middleware' => ['auth:api', 'check.permission']], function () {
+    // Resource
+    Route::apiResource('role', 'RoleController');
+    Route::apiResource('user', 'UserController');
+    Route::apiResource('menu', 'MenuController');
+
+    // Authenticated
+    Route::post('logout', 'UserController@logout');
+    Route::get('me', 'UserController@getProfile');
+    Route::post('me', 'UserController@postProfile');
+    Route::get('permission', 'RoleController@getPermissions');
+});
+
+Route::group(['middleware' => ['guest:api']], function () {
+    // Guest
+    Route::post('login', 'UserController@login')->name('login');
 });

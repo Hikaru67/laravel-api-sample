@@ -10,3 +10,6 @@ Homestead.json
 Homestead.yaml
 npm-debug.log
 yarn-error.log
+.php_cs.cache
+.rnd
+storage/api-docs/api-docs.json
