@@ -278,13 +278,6 @@ class RoleController extends Controller
      *      @OA\Response(
      *          response=200,
      *          description="Listed",
-     *          @OA\JsonContent(
-     *              @OA\Property(
-     *                  property="data",
-     *                  type="array",
-     *                  @OA\Items(ref="#/components/schemas/permission")
-     *              ),
-     *          ),
      *      ),
      *  )
      */
