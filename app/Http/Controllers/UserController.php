@@ -123,7 +123,7 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        $users = $this->userRepository->list($request->all());
+        $users = $this->userRepository->list($request->all(), ['roles']);
 
         return UserResource::collection($users);
     }
@@ -206,7 +206,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        return new UserResource($user);
+        return new UserResource($user->load('roles'));
     }
 
     /**

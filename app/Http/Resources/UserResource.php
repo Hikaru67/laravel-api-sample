@@ -19,6 +19,7 @@ class UserResource extends JsonResource
             'email' => $this->email,
             'name' => $this->name,
             'menus' => $this->menus,
+            'roles' => RoleResource::collection($this->whenLoaded('roles')),
             'api_token' => $this->when($this->whenLoaded($this->api_token), $this->api_token),
         ];
     }
