@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e9def57aae774184ccbfe8685bce5201",
+    "content-hash": "76c71f417ad0f27a1dd4f2c70cd56067",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -5144,16 +5144,16 @@
         },
         {
             "name": "digidinosvn/triceratops",
-            "version": "v1.0",
+            "version": "v2.0",
             "source": {
                 "type": "git",
                 "url": "git@gitlab.com:digidinosvn/triceratops.git",
-                "reference": "19db686aa462a972bf7d9b766243c01e2300fd80"
+                "reference": "cefda2220adabbc5cc7777be364bf997cd291e95"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://gitlab.com/api/v4/projects/digidinosvn%2Ftriceratops/repository/archive.zip?sha=19db686aa462a972bf7d9b766243c01e2300fd80",
-                "reference": "19db686aa462a972bf7d9b766243c01e2300fd80",
+                "url": "https://gitlab.com/api/v4/projects/digidinosvn%2Ftriceratops/repository/archive.zip?sha=cefda2220adabbc5cc7777be364bf997cd291e95",
+                "reference": "cefda2220adabbc5cc7777be364bf997cd291e95",
                 "shasum": ""
             },
             "require": {
@@ -5188,7 +5188,7 @@
                 "generator",
                 "laravel"
             ],
-            "time": "2020-07-15T11:08:23+00:00"
+            "time": "2020-07-17T08:15:52+00:00"
         },
         {
             "name": "doctrine/annotations",
@@ -7289,16 +7289,16 @@
         },
         {
             "name": "swagger-api/swagger-ui",
-            "version": "v3.28.0",
+            "version": "v3.29.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/swagger-api/swagger-ui.git",
-                "reference": "3cef22736827b933b0f116e33847a47f7724bd16"
+                "reference": "9bca433ab2498fdc3d7ffb7d2ede4a12b8d5c269"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/swagger-api/swagger-ui/zipball/3cef22736827b933b0f116e33847a47f7724bd16",
-                "reference": "3cef22736827b933b0f116e33847a47f7724bd16",
+                "url": "https://api.github.com/repos/swagger-api/swagger-ui/zipball/9bca433ab2498fdc3d7ffb7d2ede4a12b8d5c269",
+                "reference": "9bca433ab2498fdc3d7ffb7d2ede4a12b8d5c269",
                 "shasum": ""
             },
             "type": "library",
@@ -7342,7 +7342,7 @@
                 "swagger",
                 "ui"
             ],
-            "time": "2020-06-29T12:43:36+00:00"
+            "time": "2020-07-17T02:37:48+00:00"
         },
         {
             "name": "symfony/yaml",
