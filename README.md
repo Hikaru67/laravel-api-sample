@@ -20,6 +20,13 @@
 Chạy ``php artisan serve`` để khởi động serve
 Truy cập ``/api/documentation`` để sử dụng api document
 
+## Tool generate code
+
+Chạy ``php artisan generate:api`` để sinh code api
+Chạy ``php artisan generate:nuxt`` để sinh code nuxt
+Chạy ``php artisan generate:all`` để sinh code tất cả
+Chạy ``php artisan vendor:publish --provider="Digidinos\CodeGenerator\CodeGeneratorServiceProvider" --force`` để publish template
+
 ## Debug
 
   1. Thông báo lỗi: ``Personal access client not found. Please create one.``

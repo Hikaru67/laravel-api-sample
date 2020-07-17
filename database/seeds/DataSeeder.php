@@ -15,45 +15,45 @@ class DataSeeder extends Seeder
     {
         app()[PermissionRegistrar::class]->forgetCachedPermissions();
 
-        $moduleMenu = Menu::firstOrCreate(
+        $moduleMenu = Menu::updateOrCreate(
             ['title' => 'module', 'parent_id' => 0],
             ['position' => 1]
         );
 
-        $systemMenu = Menu::firstOrCreate(
+        $systemMenu = Menu::updateOrCreate(
             ['title' => 'system', 'parent_id' => 0],
             ['position' => 1]
         );
 
         // user groups
-        $userGroup = Menu::firstOrCreate(
+        $userGroup = Menu::updateOrCreate(
             ['title' => 'user', 'parent_id' => $systemMenu->id],
             ['position' => 1]
         );
 
-        $userMenu = Menu::firstOrCreate(
+        $userMenu = Menu::updateOrCreate(
             ['title' => 'user.index', 'parent_id' => $userGroup->id],
-            ['link' => 'users', 'position' => 1, 'icon' => 'user-friends']
+            ['link' => '/users', 'position' => 1, 'icon' => 'user-friends']
         );
 
         // role groups
-        $roleGroup = Menu::firstOrCreate(
+        $roleGroup = Menu::updateOrCreate(
             ['title' => 'role', 'parent_id' => $systemMenu->id],
             ['position' => 2]
         );
 
-        $roleMenu = Menu::firstOrCreate(
+        $roleMenu = Menu::updateOrCreate(
             ['title' => 'role.index', 'parent_id' => $roleGroup->id],
-            ['link' => 'roles', 'position' => 1, 'icon' => 'balance-scale']
+            ['link' => '/roles', 'position' => 1, 'icon' => 'balance-scale']
         );
 
         // menu groups
-        // $menuGroup = Menu::firstOrCreate(
+        // $menuGroup = Menu::updateOrCreate(
         //     ['title' => 'menu', 'parent_id' => $systemMenu->id],
         //     ['position' => 3]
         // );
 
-        // $menuMenu = Menu::firstOrCreate(
+        // $menuMenu = Menu::updateOrCreate(
         //     ['title' => 'menu.index', 'parent_id' => $menuGroup->id],
         //     ['link' => 'menus', 'position' => 1]
         // );
