@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use DB;
 use Illuminate\Container\Container as App;
 use Illuminate\Database\Eloquent\Model;
+use Str;
 
 abstract class BaseRepository
 {
@@ -234,5 +235,52 @@ abstract class BaseRepository
         }
 
         return $entity;
+    }
+
+    /**
+     * Find by condition .
+     *
+     * @param mixed $request
+     * @param array $relations
+     *
+     * @return object $entities
+     */
+    public function findByCondition($condition, $relations = [])
+    {
+        $entities = $this->model->select($this->model->selectable);
+
+        if (count($relations)) {
+            $entities = $entities->with($relations);
+        }
+
+        if (count($condition)) {
+            foreach ($condition as $key => $value) {
+                $entities = $this->search($entities, $key, $value);
+            }
+        }
+
+        return $entities;
+    }
+
+    /**
+     * Cache the query result.
+     *
+     * @param string $method
+     * @param mixed ...$params
+     *
+     * @return mixed cached query result
+     */
+    public function cache($method, ...$params)
+    {
+        if (! method_exists($this, $method)) {
+            throw new DDException("Method doesn't exist");
+        }
+        $name = Str::singular($this->model->getTable()).'_'.$method;
+        $cacheByKey = config('constant.cache_expired.'.$name);
+        $expired = $cacheByKey ? $cacheByKey : config('constant.cache_expired.default', 0);
+
+        return cache()->remember($name, $expired, function () use ($method, $params) {
+            return $this->$method(...$params);
+        });
     }
 }
