@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "76c71f417ad0f27a1dd4f2c70cd56067",
+    "content-hash": "d1c57199ffcb70d818628cc1b4688ab4",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -5141,54 +5141,6 @@
                 "swagger"
             ],
             "time": "2020-03-05T07:15:45+00:00"
-        },
-        {
-            "name": "digidinosvn/triceratops",
-            "version": "v2.0",
-            "source": {
-                "type": "git",
-                "url": "git@gitlab.com:digidinosvn/triceratops.git",
-                "reference": "cefda2220adabbc5cc7777be364bf997cd291e95"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://gitlab.com/api/v4/projects/digidinosvn%2Ftriceratops/repository/archive.zip?sha=cefda2220adabbc5cc7777be364bf997cd291e95",
-                "reference": "cefda2220adabbc5cc7777be364bf997cd291e95",
-                "shasum": ""
-            },
-            "require": {
-                "doctrine/dbal": "^2.10",
-                "illuminate/support": "^7.0",
-                "php": "^7.2.5"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "Digidinos\\CodeGenerator\\CodeGeneratorServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Digidinos\\CodeGenerator\\": "src/"
-                }
-            },
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Digidinos",
-                    "email": "admin@digidinos.com"
-                }
-            ],
-            "description": "Code generator for Laravel",
-            "keywords": [
-                "generator",
-                "laravel"
-            ],
-            "time": "2020-07-17T08:15:52+00:00"
         },
         {
             "name": "doctrine/annotations",

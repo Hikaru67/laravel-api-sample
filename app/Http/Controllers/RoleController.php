@@ -81,7 +81,9 @@ class RoleController extends Controller
      */
     public function index(Request $request)
     {
-        $roles = $this->roleRepository->list($request->all());
+        $data = $request->all();
+        $data['except_role'] = config('constant.admin_role');
+        $roles = $this->roleRepository->list($data);
 
         return RoleResource::collection($roles);
     }
@@ -123,7 +125,7 @@ class RoleController extends Controller
 
         $role = $this->roleRepository->create($data);
 
-        if ($request->permissions) {
+        if ($request->has('permissions')) {
             $this->roleRepository->syncPermissions($role, $request->permissions);
         }
 
@@ -221,7 +223,7 @@ class RoleController extends Controller
 
         $this->roleRepository->update($role, $data);
 
-        if ($request->permissions) {
+        if ($request->has('permissions')) {
             $this->roleRepository->syncPermissions($role, $request->permissions);
         }
 

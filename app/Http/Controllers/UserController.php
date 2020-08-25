@@ -165,7 +165,7 @@ class UserController extends Controller
 
         $user = $this->userRepository->create($data);
 
-        if ($request->roles) {
+        if ($request->has('roles')) {
             $this->userRepository->syncRoles($user, $request->roles);
         }
 
@@ -256,7 +256,7 @@ class UserController extends Controller
 
         $this->userRepository->update($user, $data);
 
-        if ($request->roles) {
+        if ($request->has('roles')) {
             $this->userRepository->syncRoles($user, $request->roles);
         }
 

@@ -15,6 +15,25 @@ class MenuRepository extends BaseRepository
     }
 
     /**
+     * @param mixed $query
+     * @param mixed $column
+     * @param mixed $data
+     *
+     * @return Query
+     */
+    public function search($query, $column, $data)
+    {
+        switch ($column) {
+            case 'ids':
+                return $query->whereIn('id', $data);
+                break;
+            default:
+                return $query;
+                break;
+        }
+    }
+
+    /**
      * @param Menu $menu
      * @param array $roles
      *
@@ -23,5 +42,21 @@ class MenuRepository extends BaseRepository
     public function syncRoles(Menu $menu, $roles)
     {
         $menu->syncRoles($roles);
+    }
+
+    /**
+     * @param array $menus
+     * @param array $roles
+     *
+     * @return void
+     */
+    public function syncRolesDeep($menus, $roles)
+    {
+        if ($menus->count()) {
+            foreach ($menus as $menu) {
+                $menu->syncRoles($roles);
+                $this->syncRolesDeep($menu->menus, $roles);
+            }
+        }
     }
 }

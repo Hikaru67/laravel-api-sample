@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\MenuRequest;
+use App\Http\Requests\MoveRequest;
 use App\Http\Resources\MenuResource;
 use App\Models\Menu;
 use App\Repositories\MenuRepository;
@@ -95,7 +96,7 @@ class MenuController extends Controller
      */
     public function index(Request $request)
     {
-        $menus = $this->menuRepository->list($request->all());
+        $menus = $this->menuRepository->list($request->all(), ['roles']);
 
         return MenuResource::collection($menus);
     }
@@ -134,7 +135,7 @@ class MenuController extends Controller
     {
         $menu = $this->menuRepository->create($request->all());
 
-        if ($request->roles) {
+        if ($request->has('roles')) {
             $this->menuRepository->syncRoles($menu, $request->roles);
         }
 
@@ -175,7 +176,7 @@ class MenuController extends Controller
      */
     public function show(Menu $menu)
     {
-        return new MenuResource($menu->load('menus'));
+        return new MenuResource($menu->load('roles'));
     }
 
     /**
@@ -219,8 +220,10 @@ class MenuController extends Controller
     {
         $this->menuRepository->update($menu, $request->all());
 
-        if ($request->roles) {
+        if ($request->has('roles')) {
+            $menu->load('menus');
             $this->menuRepository->syncRoles($menu, $request->roles);
+            $this->menuRepository->syncRolesDeep($menu->menus, $request->roles);
         }
 
         return new MenuResource($menu);
@@ -257,5 +260,72 @@ class MenuController extends Controller
         $this->menuRepository->delete($menu);
 
         return response()->json(null, 204);
+    }
+
+    /**
+     * Moving a list menu.
+     *
+     * @param MoveRequest $request
+     *
+     * @return Response
+     *
+     *  @OA\Post(
+     *      path="/api/menu/move",
+     *      tags={"Menu"},
+     *      operationId="moveMenu",
+     *      summary="Move Menu",
+     *      @OA\RequestBody(
+     *          required=true,
+     *          @OA\JsonContent(
+     *              @OA\Property(
+     *                  property="list",
+     *                  type="array",
+     *                  @OA\Items(ref="#/components/schemas/list")
+     *              ),
+     *          ),
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Moved",
+     *          @OA\JsonContent(
+     *              @OA\Property(
+     *                  property="data",
+     *                  type="array",
+     *                  @OA\Items(ref="#/components/schemas/menu")
+     *              ),
+     *              @OA\Property(
+     *                  property="meta",
+     *                  ref="#/components/schemas/meta"
+     *              ),
+     *              @OA\Property(
+     *                  property="links",
+     *                  ref="#/components/schemas/links"
+     *              ),
+     *          ),
+     *      ),
+     *  )
+     */
+    public function move(MoveRequest $request)
+    {
+        $list = collect($request->list);
+
+        // Get list id
+        $filter = [
+            'ids' => $list->map(function ($item) {
+                return $item['id'];
+            })->toArray(),
+        ];
+
+        $menus = $this->menuRepository->list($filter);
+
+        foreach ($menus as $menu) {
+            // find the id then update
+            $data = $list->firstWhere('id', $menu->id);
+            if ($data) {
+                $this->menuRepository->update($menu, $data);
+            }
+        }
+
+        return MenuResource::collection($menus);
     }
 }

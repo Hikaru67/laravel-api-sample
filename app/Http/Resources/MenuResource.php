@@ -22,6 +22,7 @@ class MenuResource extends JsonResource
             'parent_id' => $this->parent_id,
             'position' => $this->position,
             'menus' => self::collection($this->whenLoaded('menus')),
+            'roles' => RoleResource::collection($this->whenLoaded('roles')),
         ];
     }
 }

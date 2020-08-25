@@ -19,6 +19,7 @@ Route::group(['middleware' => ['auth:api', 'check.permission']], function () {
     Route::apiResource('role', 'RoleController');
     Route::apiResource('user', 'UserController');
     Route::apiResource('menu', 'MenuController');
+    Route::post('menu/move', 'MenuController@move');
 
     // Authenticated
     Route::post('logout', 'UserController@logout');

@@ -64,17 +64,21 @@ abstract class BaseRepository
             $entities = $entities->with($relations);
         }
 
-        // filter list by condition
-        $condition = $data->has('condition') && $config['encode_condition'] ? (array) json_decode(base64_decode($data['condition'])) : $data;
-        if (count($condition) && method_exists($this, 'search')) {
-            foreach ($condition as $key => $value) {
+        if (count($data) && method_exists($this, 'search')) {
+            foreach ($data as $key => $value) {
                 $entities = $this->search($entities, $key, $value);
             }
         }
 
         // order list
-        $orderBy = $data->has('sort') && in_array($data['sort'], $this->model->sortable) ? $data['sort'] : $this->model->getKeyName();
-        $entities = $entities->orderBy($orderBy, $data->has('sortType') && $data['sortType'] == 1 ? 'asc' : 'desc');
+        $sortField = $this->model->getKeyName();
+        $sortOrder = 'desc';
+        $columns = DB::getSchemaBuilder()->getColumnListing($this->model->getTable());
+        if ($data->has('sortOrder') && $data->has('sortField') && in_array($data['sortField'], $columns)) {
+            $sortField = $data['sortField'];
+            $sortOrder = $data['sortOrder'] == 'ascend' ? 'asc' : 'desc';
+        }
+        $entities = $entities->orderBy($sortField, $sortOrder);
 
         // limit result
         $limit = $data->has('limit') ? (int) $data['limit'] : $config['paginate'];

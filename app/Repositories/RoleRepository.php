@@ -28,6 +28,9 @@ class RoleRepository extends BaseRepository
     public function search($query, $column, $data)
     {
         switch ($column) {
+            case 'except_role':
+                return $query->where('name', '!=', $data);
+                break;
             case 'name':
                 return $query->where($column, 'like', '%'.$data.'%');
                 break;
