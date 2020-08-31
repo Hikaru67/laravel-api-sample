@@ -33,7 +33,7 @@ class DataSeeder extends Seeder
 
         $userMenu = Menu::updateOrCreate(
             ['title' => 'user.index', 'parent_id' => $userGroup->id],
-            ['link' => '/users', 'position' => 1, 'icon' => 'user-friends']
+            ['link' => '/user', 'position' => 1, 'icon' => 'user-friends']
         );
 
         // role groups
@@ -44,7 +44,7 @@ class DataSeeder extends Seeder
 
         $roleMenu = Menu::updateOrCreate(
             ['title' => 'role.index', 'parent_id' => $roleGroup->id],
-            ['link' => '/roles', 'position' => 1, 'icon' => 'balance-scale']
+            ['link' => '/role', 'position' => 1, 'icon' => 'balance-scale']
         );
 
         // menu groups

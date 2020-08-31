@@ -18,7 +18,7 @@ class RoleSeeder extends Seeder
 
         $role = Role::create(['name' => config('constant.admin_role')]);
 
-        $actions = ['index', 'store', 'show', 'update', 'delete'];
+        $actions = ['index', 'store', 'show', 'update', 'destroy'];
 
         foreach ($actions as $key) {
             Permission::create(['name' => 'role.'.$key]);

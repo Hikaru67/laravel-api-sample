@@ -16,7 +16,7 @@ class UserSeeder extends Seeder
     {
         app()[PermissionRegistrar::class]->forgetCachedPermissions();
 
-        $actions = ['index', 'store', 'show', 'update', 'delete'];
+        $actions = ['index', 'store', 'show', 'update', 'destroy'];
 
         foreach ($actions as $key) {
             Permission::create(['name' => 'user.'.$key]);

@@ -125,6 +125,25 @@ use Illuminate\Routing\Controller as BaseController;
  *          example=1,
  *      ),
  *  )
+ *
+ *  @OA\Schema(
+ *      schema="list",
+ *      @OA\Property(
+ *          property="id",
+ *          type="number",
+ *          example=1,
+ *      ),
+ *      @OA\Property(
+ *          property="parent_id",
+ *          type="number",
+ *          example=1,
+ *      ),
+ *      @OA\Property(
+ *          property="position",
+ *          type="number",
+ *          example=1,
+ *      ),
+ *  )
  */
 class Controller extends BaseController
 {

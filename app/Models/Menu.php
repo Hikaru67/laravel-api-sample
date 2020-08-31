@@ -7,9 +7,9 @@ use Spatie\Permission\Traits\HasRoles;
 
 class Menu extends Model
 {
-    protected $guard_name = 'web';
-
     use HasRoles;
+
+    protected $guard_name = 'web';
 
     protected $fillable = [
         'title',
@@ -21,6 +21,6 @@ class Menu extends Model
 
     public function menus()
     {
-        return $this->hasMany(self::class, 'parent_id')->with('menus');
+        return $this->hasMany(self::class, 'parent_id')->with('menus')->orderBy('position', 'asc');
     }
 }
