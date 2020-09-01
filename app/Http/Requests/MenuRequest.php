@@ -23,10 +23,10 @@ class MenuRequest extends FormRequest
      */
     public function rules()
     {
-        $required = ! $this->menu ? 'required|' : '';
+        $required = !$this->menu ? 'required|' : '';
 
         return [
-            'title' => $required.'string|max:255',
+            'title' => $required . 'string|max:255',
             'link' => 'string|max:255',
             'icon' => 'string',
             'parent_id' => 'integer|min:0',

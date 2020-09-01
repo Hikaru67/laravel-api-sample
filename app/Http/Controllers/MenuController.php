@@ -70,8 +70,8 @@ class MenuController extends Controller
      *      summary="List Menu",
      *      @OA\Parameter(ref="#/components/parameters/page"),
      *      @OA\Parameter(ref="#/components/parameters/limit"),
-     *      @OA\Parameter(ref="#/components/parameters/sort"),
-     *      @OA\Parameter(ref="#/components/parameters/sortType"),
+     *      @OA\Parameter(ref="#/components/parameters/sortField"),
+     *      @OA\Parameter(ref="#/components/parameters/sortOrder"),
      *      @OA\Parameter(ref="#/components/parameters/condition"),
      *      @OA\Response(
      *          response=200,

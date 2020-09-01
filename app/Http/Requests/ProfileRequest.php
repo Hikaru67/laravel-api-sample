@@ -25,6 +25,7 @@ class ProfileRequest extends FormRequest
     {
         return [
             'name' => 'max:255',
+            'email' => 'email|max:255|unique:users,email,' . (auth()->user()->id ?? 0),
             'old_password' => 'min:6|max:255',
             'new_password' => 'min:6|max:255',
         ];

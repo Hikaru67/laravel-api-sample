@@ -30,7 +30,7 @@ abstract class BaseRepository
     public function setModelClass()
     {
         $model = $this->app->make($this->getModel());
-        if (! $model instanceof Model) {
+        if (!$model instanceof Model) {
             throw new DDException("Class {$this->getModel()} must be an instance of Illuminate\\Database\\Eloquent\\Model");
         }
 
@@ -217,7 +217,7 @@ abstract class BaseRepository
      */
     public function groupBy($field)
     {
-        $raw = $field.', count('.$field.') as '.$field.'_count';
+        $raw = $field . ', count(' . $field . ') as ' . $field . '_count';
 
         return $this->model->select(DB::raw($raw))->groupBy($field)->get();
     }
@@ -276,11 +276,11 @@ abstract class BaseRepository
      */
     public function cache($method, ...$params)
     {
-        if (! method_exists($this, $method)) {
+        if (!method_exists($this, $method)) {
             throw new DDException("Method doesn't exist");
         }
-        $name = Str::singular($this->model->getTable()).'_'.$method;
-        $cacheByKey = config('constant.cache_expired.'.$name);
+        $name = Str::singular($this->model->getTable()) . '_' . $method;
+        $cacheByKey = config('constant.cache_expired.' . $name);
         $expired = $cacheByKey ? $cacheByKey : config('constant.cache_expired.default', 0);
 
         return cache()->remember($name, $expired, function () use ($method, $params) {

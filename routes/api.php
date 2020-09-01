@@ -15,16 +15,18 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::group(['middleware' => ['auth:api', 'check.permission']], function () {
-    // Resource
+    // Resources
     Route::apiResource('role', 'RoleController');
     Route::apiResource('user', 'UserController');
     Route::apiResource('menu', 'MenuController');
-    Route::post('menu/move', 'MenuController@move');
 
     // Authenticated
     Route::post('logout', 'UserController@logout');
     Route::get('me', 'UserController@getProfile');
     Route::post('me', 'UserController@postProfile');
+
+    // Others
+    Route::post('menu/move', 'MenuController@move');
     Route::get('permission', 'RoleController@getPermissions');
 });
 

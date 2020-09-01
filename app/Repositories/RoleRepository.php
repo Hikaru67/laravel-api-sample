@@ -32,7 +32,7 @@ class RoleRepository extends BaseRepository
                 return $query->where('name', '!=', $data);
                 break;
             case 'name':
-                return $query->where($column, 'like', '%'.$data.'%');
+                return $query->where($column, 'like', '%' . $data . '%');
                 break;
             default:
                 return $query;

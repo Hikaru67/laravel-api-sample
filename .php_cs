@@ -5,7 +5,7 @@ $rules = [
     'array_syntax' => ['syntax' => 'short'],
     'binary_operator_spaces' => [
         'default' => 'single_space',
-        'operators' => ['=>' => null]
+        'operators' => ['=>' => 'single_space']
     ],
     'blank_line_after_namespace' => true,
     'blank_line_after_opening_tag' => true,
@@ -19,7 +19,7 @@ $rules = [
     ],
     'class_definition' => true,
     'concat_space' => [
-        'spacing' => 'none'
+        'spacing' => 'one'
     ],
     'declare_equal_normalize' => true,
     'elseif' => true,
@@ -80,7 +80,7 @@ $rules = [
     'no_whitespace_before_comma_in_array' => true,
     'no_whitespace_in_blank_line' => true,
     'normalize_index_brace' => true,
-    'not_operator_with_successor_space' => true,
+    'not_operator_with_successor_space' => false,
     'object_operator_without_whitespace' => true,
     'ordered_imports' => ['sortAlgorithm' => 'alpha'],
     'phpdoc_indent' => true,

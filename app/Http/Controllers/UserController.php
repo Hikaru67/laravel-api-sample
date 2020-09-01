@@ -97,8 +97,8 @@ class UserController extends Controller
      *      summary="List User",
      *      @OA\Parameter(ref="#/components/parameters/page"),
      *      @OA\Parameter(ref="#/components/parameters/limit"),
-     *      @OA\Parameter(ref="#/components/parameters/sort"),
-     *      @OA\Parameter(ref="#/components/parameters/sortType"),
+     *      @OA\Parameter(ref="#/components/parameters/sortField"),
+     *      @OA\Parameter(ref="#/components/parameters/sortOrder"),
      *      @OA\Parameter(ref="#/components/parameters/condition"),
      *      @OA\Response(
      *          response=200,
@@ -323,7 +323,7 @@ class UserController extends Controller
      */
     public function login(AuthRequest $request)
     {
-        if (! auth()->attempt(['email' => $request->email, 'password' => $request->password])) {
+        if (!auth()->attempt(['email' => $request->email, 'password' => $request->password])) {
             return response()->json(['message' => 'Email/Password is not matched'], 401);
         }
 
@@ -393,7 +393,7 @@ class UserController extends Controller
         $data = $request->only('name');
 
         if ($request->has('old_password') && $request->has('new_password')) {
-            if (! auth()->guard('web')->attempt(['email' => $user->email, 'password' => $request->old_password])) {
+            if (!auth()->guard('web')->attempt(['email' => $user->email, 'password' => $request->old_password])) {
                 return response()->json(['message' => 'Password doesn\'t match'], 403);
             }
             $data['password'] = bcrypt($request->new_password);

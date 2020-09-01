@@ -45,21 +45,12 @@ use Illuminate\Routing\Controller as BaseController;
  *  )
  *
  *  @OA\Parameter(
- *      name="sort",
+ *      name="sortOrder",
  *      in="query",
  *  )
  *
  *  @OA\Parameter(
- *      name="sortType",
- *      in="query",
- *      @OA\Schema(
- *          type="integer",
- *          format="int64",
- *      )
- *  )
- *
- *  @OA\Parameter(
- *      name="condition",
+ *      name="sortField",
  *      in="query",
  *  )
  *

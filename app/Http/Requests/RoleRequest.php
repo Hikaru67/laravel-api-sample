@@ -23,10 +23,10 @@ class RoleRequest extends FormRequest
      */
     public function rules()
     {
-        $required = ! $this->role ? 'required|' : '';
+        $required = !$this->role ? 'required|' : '';
 
         return [
-            'name' => $required.'max:255',
+            'name' => $required . 'max:255',
             'permissions.*' => 'integer|min:0',
         ];
     }

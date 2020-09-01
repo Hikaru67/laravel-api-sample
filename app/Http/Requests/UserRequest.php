@@ -23,12 +23,12 @@ class UserRequest extends FormRequest
      */
     public function rules()
     {
-        $required = ! $this->user ? 'required|' : '';
+        $required = !$this->user ? 'required|' : '';
 
         return [
-            'name' => $required.'max:255',
-            'email' => $required.'max:255|unique:users,email,'.($this->user->id ?? 0),
-            'password' => $required.'min:6|max:255',
+            'name' => $required . 'max:255',
+            'email' => $required . 'max:255|unique:users,email,' . ($this->user->id ?? 0),
+            'password' => $required . 'min:6|max:255',
             'roles.*' => 'integer|min:0',
         ];
     }

@@ -16,12 +16,12 @@ class RoleSeeder extends Seeder
     {
         app()[PermissionRegistrar::class]->forgetCachedPermissions();
 
-        $role = Role::create(['name' => config('constant.admin_role')]);
+        $role = Role::updateOrCreate(['name' => config('constant.admin_role')]);
 
         $actions = ['index', 'store', 'show', 'update', 'destroy'];
 
         foreach ($actions as $key) {
-            Permission::create(['name' => 'role.'.$key]);
+            Permission::updateOrCreate(['name' => 'role.' . $key]);
         }
     }
 }

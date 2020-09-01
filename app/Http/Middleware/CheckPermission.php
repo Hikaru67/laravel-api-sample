@@ -22,7 +22,7 @@ class CheckPermission
             $name
             && config('constant.authorization')
             && Auth::guard('api')->check()
-            && ! Auth::guard('api')->user()->can($name)
+            && !Auth::guard('api')->user()->can($name)
         ) {
             return response()->json(['message' => 'You don\'t have permission to do this'], 403);
         }

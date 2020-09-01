@@ -55,8 +55,8 @@ class RoleController extends Controller
      *      summary="List Role",
      *      @OA\Parameter(ref="#/components/parameters/page"),
      *      @OA\Parameter(ref="#/components/parameters/limit"),
-     *      @OA\Parameter(ref="#/components/parameters/sort"),
-     *      @OA\Parameter(ref="#/components/parameters/sortType"),
+     *      @OA\Parameter(ref="#/components/parameters/sortField"),
+     *      @OA\Parameter(ref="#/components/parameters/sortOrder"),
      *      @OA\Parameter(ref="#/components/parameters/condition"),
      *      @OA\Response(
      *          response=200,
@@ -82,7 +82,9 @@ class RoleController extends Controller
     public function index(Request $request)
     {
         $data = $request->all();
-        $data['except_role'] = config('constant.admin_role');
+        if ($request->has('except_role')) {
+            $data['except_role'] = config('constant.admin_role');
+        }
         $roles = $this->roleRepository->list($data);
 
         return RoleResource::collection($roles);

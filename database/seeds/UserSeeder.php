@@ -19,14 +19,18 @@ class UserSeeder extends Seeder
         $actions = ['index', 'store', 'show', 'update', 'destroy'];
 
         foreach ($actions as $key) {
-            Permission::create(['name' => 'user.'.$key]);
+            Permission::updateOrCreate(['name' => 'user.' . $key]);
         }
 
-        $user = User::create([
-            'name' => 'Admin',
-            'email' => 'admin@admin.com',
-            'password' => bcrypt('123456'),
-        ]);
+        $user = User::updateOrCreate(
+            [
+                'email' => 'admin@admin.com',
+            ],
+            [
+                'name' => 'Admin',
+                'password' => bcrypt('123456'),
+            ]
+        );
 
         $user->syncRoles(config('constant.admin_role'));
     }
