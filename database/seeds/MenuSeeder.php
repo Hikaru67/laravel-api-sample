@@ -22,20 +22,9 @@ class MenuSeeder extends Seeder
             Permission::updateOrCreate(['name' => 'menu.' . $key]);
         }
 
-        // module list
-        $moduleMenu = Menu::updateOrCreate(
-            ['title' => 'module', 'parent_id' => 0],
-            ['position' => 1]
-        );
-
-        $systemMenu = Menu::updateOrCreate(
-            ['title' => 'system', 'parent_id' => 0],
-            ['position' => 1]
-        );
-
         // user groups
         $userGroup = Menu::updateOrCreate(
-            ['title' => 'user', 'parent_id' => $systemMenu->id],
+            ['title' => 'user', 'parent_id' => 0],
             ['position' => 1]
         );
 
@@ -46,7 +35,7 @@ class MenuSeeder extends Seeder
 
         // role groups
         $roleGroup = Menu::updateOrCreate(
-            ['title' => 'role', 'parent_id' => $systemMenu->id],
+            ['title' => 'role', 'parent_id' => 0],
             ['position' => 2]
         );
 
@@ -57,13 +46,13 @@ class MenuSeeder extends Seeder
 
         // menu groups
         $menuGroup = Menu::updateOrCreate(
-            ['title' => 'menu', 'parent_id' => $systemMenu->id],
+            ['title' => 'menu', 'parent_id' => 0],
             ['position' => 3]
         );
 
         $menuMenu = Menu::updateOrCreate(
             ['title' => 'menu.index', 'parent_id' => $menuGroup->id],
-            ['link' => 'menus', 'position' => 1]
+            ['link' => 'menu', 'position' => 1]
         );
     }
 }
