@@ -26,9 +26,9 @@ class MenuRequest extends FormRequest
         $required = !$this->menu ? 'required|' : '';
 
         return [
-            'title' => $required . 'string|max:255',
-            'link' => 'string|max:255',
-            'icon' => 'string',
+            'title' => $required . 'max:255',
+            'link' => 'max:255',
+            'icon' => 'max:255',
             'parent_id' => 'integer|min:0',
             'position' => 'integer|min:0',
             'roles.*' => 'integer|min:0',
