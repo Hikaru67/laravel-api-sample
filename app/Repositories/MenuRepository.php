@@ -59,4 +59,16 @@ class MenuRepository extends BaseRepository
             }
         }
     }
+
+    /**
+     * Get menu max position.
+     *
+     * @param int $parentId
+     *
+     * @return int max position
+     */
+    public function getMaxPosition($parentId = 0)
+    {
+        return $this->model->select('position')->where('parent_id', $parentId)->max('position');
+    }
 }

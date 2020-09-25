@@ -133,7 +133,10 @@ class MenuController extends Controller
      */
     public function store(MenuRequest $request)
     {
-        $menu = $this->menuRepository->create($request->all());
+        $lastPosition = $this->menuRepository->getMaxPosition() ?? 0;
+        $data = $request->all();
+        $data['position'] = $lastPosition + 1;
+        $menu = $this->menuRepository->create($data);
 
         if ($request->has('roles')) {
             $this->menuRepository->syncRoles($menu, $request->roles);
