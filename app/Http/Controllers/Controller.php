@@ -10,7 +10,8 @@ use Illuminate\Routing\Controller as BaseController;
 /**
  *  @OA\OpenApi(
  *      security={
- *          {"bearerAuth": {}}
+ *          {"bearerAuth": {}},
+ *          {"passport": {}}
  *      }
  *  )
  *

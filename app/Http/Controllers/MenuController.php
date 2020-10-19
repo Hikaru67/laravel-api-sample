@@ -72,7 +72,6 @@ class MenuController extends Controller
      *      @OA\Parameter(ref="#/components/parameters/limit"),
      *      @OA\Parameter(ref="#/components/parameters/sortField"),
      *      @OA\Parameter(ref="#/components/parameters/sortOrder"),
-     *      @OA\Parameter(ref="#/components/parameters/condition"),
      *      @OA\Response(
      *          response=200,
      *          description="Listed",

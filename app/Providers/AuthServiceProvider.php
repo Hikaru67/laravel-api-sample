@@ -28,6 +28,8 @@ class AuthServiceProvider extends ServiceProvider
 
         $time = now()->addMinutes(config('constant.token_expired'));
 
+        Passport::routes();
+
         Passport::tokensExpireIn($time);
 
         Passport::refreshTokensExpireIn($time);
