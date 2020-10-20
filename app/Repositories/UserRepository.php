@@ -120,4 +120,20 @@ class UserRepository extends BaseRepository
                 })
                 ->values();
     }
+
+    /**
+     * Get grant client.
+     *
+     * @return Collection
+     */
+    public function getGrantClient()
+    {
+        $condition = [
+            'password_client' => 1,
+            'personal_access_client' => 0,
+            'provider' => $this->model->getTable(),
+        ];
+
+        return DB::table('oauth_clients')->where($condition)->first();
+    }
 }

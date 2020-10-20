@@ -26,15 +26,13 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        $time = now()->addMinutes(config('constant.token_expired'));
-
         Passport::routes();
 
-        Passport::tokensExpireIn($time);
+        Passport::tokensExpireIn(now()->addDays(1));
 
-        Passport::refreshTokensExpireIn($time);
+        Passport::refreshTokensExpireIn(now()->addDays(15));
 
-        Passport::personalAccessTokensExpireIn($time);
+        Passport::personalAccessTokensExpireIn(now()->addDays(1));
 
         Gate::before(function ($user, $ability) {
             return $user->hasRole(config('constant.admin_role')) ? true : null;

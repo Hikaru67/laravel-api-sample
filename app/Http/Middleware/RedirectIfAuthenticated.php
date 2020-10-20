@@ -19,7 +19,7 @@ class RedirectIfAuthenticated
     public function handle($request, Closure $next, $guard = null)
     {
         if (Auth::guard($guard)->check()) {
-            return response()->json(['message' => 'Already Authenticated'], 401);
+            abort(401, 'Already Authenticated');
         }
 
         return $next($request);

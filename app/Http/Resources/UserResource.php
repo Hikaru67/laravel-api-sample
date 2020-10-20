@@ -20,7 +20,8 @@ class UserResource extends JsonResource
             'name' => $this->name,
             'menus' => $this->menus,
             'roles' => RoleResource::collection($this->whenLoaded('roles')),
-            'api_token' => $this->when($this->whenLoaded($this->api_token), $this->api_token),
+            'access_token' => $this->when($this->whenLoaded($this->access_token), $this->access_token),
+            'refresh_token' => $this->when($this->whenLoaded($this->refresh_token), $this->refresh_token),
         ];
     }
 }

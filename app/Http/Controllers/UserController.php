@@ -8,6 +8,8 @@ use App\Http\Requests\UserRequest;
 use App\Http\Resources\UserResource;
 use App\Models\User;
 use App\Repositories\UserRepository;
+use GuzzleHttp\Client;
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -74,14 +76,13 @@ use Illuminate\Http\Response;
  */
 class UserController extends Controller
 {
-    /**
-     * @var  userRepository
-     */
-    protected $userRepository;
-
     public function __construct(UserRepository $userRepository)
     {
         $this->userRepository = $userRepository;
+        $this->http = new Client([
+            'base_uri' => secure_url('/'),
+            'verify' => false,
+        ]);
     }
 
     /**
@@ -290,8 +291,8 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        if ($user->id == auth()->guard('api')->user()->id) {
-            return response()->json(['message' => 'Cannot delete yourself'], 403);
+        if ($user->id == auth()->guard('api')->id()) {
+            abort(403, 'Access denied');
         }
 
         $this->userRepository->delete($user);
@@ -322,15 +323,77 @@ class UserController extends Controller
      */
     public function login(AuthRequest $request)
     {
-        if (!auth()->attempt(['email' => $request->email, 'password' => $request->password])) {
-            return response()->json(['message' => 'Email/Password is not matched'], 401);
+        $client = $this->userRepository->getGrantClient();
+        if (!$client) {
+            abort(401, 'No client found');
         }
 
-        $user = $this->userRepository->detail(auth()->user());
+        try {
+            $response = $this->http->post('/oauth/token', [
+                'form_params' => [
+                    'grant_type' => 'password',
+                    'client_id' => $client->id,
+                    'client_secret' => $client->secret,
+                    'username' => $request->email,
+                    'password' => $request->password,
+                ],
+            ]);
 
-        $this->userRepository->updateToken($user);
+            return $response->getBody();
+        } catch (\Exception $e) {
+            abort(401, 'Email/Password do not match');
+        }
+    }
 
-        return new UserResource($user);
+    /**
+     * Login user.
+     *
+     * @param AuthRequest $request
+     * @return UserResource
+     *
+     *  @OA\Post(
+     *      path="/api/refresh",
+     *      tags={"User"},
+     *      operationId="refreshUser",
+     *      summary="Refresh User",
+     *      @OA\RequestBody(
+     *          required=true,
+     *          @OA\JsonContent(
+     *              @OA\Property(
+     *                  property="refresh_token",
+     *                  type="string",
+     *                  example="demo",
+     *              )
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Refreshed",
+     *      ),
+     *  )
+     */
+    public function refresh(Request $request)
+    {
+        $client = $this->userRepository->getGrantClient();
+        if (!$client) {
+            abort(401, 'No client found');
+        }
+
+        try {
+            $response = $this->http->post('/oauth/token', [
+                'form_params' => [
+                    'grant_type' => 'refresh_token',
+                    'client_id' => $client->id,
+                    'client_secret' => $client->secret,
+                    'refresh_token' => $request->refresh_token,
+                ],
+                'verify' => false,
+            ]);
+
+            return $response->getBody();
+        } catch (\Exception $e) {
+            abort(403, 'Refresh token is invalid');
+        }
     }
 
     /**
@@ -393,7 +456,7 @@ class UserController extends Controller
 
         if ($request->has('old_password') && $request->has('new_password')) {
             if (!auth()->guard('web')->attempt(['email' => $user->email, 'password' => $request->old_password])) {
-                return response()->json(['message' => 'Password doesn\'t match'], 403);
+                abort(403, 'Password doesn\'t match');
             }
             $data['password'] = bcrypt($request->new_password);
         }

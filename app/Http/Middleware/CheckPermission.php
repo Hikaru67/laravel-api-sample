@@ -24,7 +24,7 @@ class CheckPermission
             && Auth::guard('api')->check()
             && !Auth::guard('api')->user()->can($name)
         ) {
-            return response()->json(['message' => 'You don\'t have permission to do this'], 403);
+            abort(403, 'You don\'t have permission to do this');
         }
 
         return $next($request);

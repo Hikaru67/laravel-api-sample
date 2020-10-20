@@ -47,11 +47,6 @@ use Illuminate\Http\Response;
  */
 class MenuController extends Controller
 {
-    /**
-     * @var  menuRepository
-     */
-    protected $menuRepository;
-
     public function __construct(MenuRepository $menuRepository)
     {
         $this->menuRepository = $menuRepository;

@@ -34,3 +34,6 @@ Route::group(['middleware' => ['guest:api']], function () {
     // Guest
     Route::post('login', 'UserController@login')->name('login');
 });
+
+// Refresh token
+Route::post('refresh', 'UserController@refresh');

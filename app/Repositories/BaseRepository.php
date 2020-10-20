@@ -49,8 +49,6 @@ abstract class BaseRepository
     {
         $data = collect($data);
 
-        $config = config('constant');
-
         // select list column
         $entities = $this->model->select($this->model->selectable ?? ['*']);
 
@@ -81,7 +79,7 @@ abstract class BaseRepository
         $entities = $entities->orderBy($sortField, $sortOrder);
 
         // limit result
-        $limit = $data->has('limit') ? (int) $data['limit'] : $config['paginate'];
+        $limit = $data->has('limit') ? (int) $data['limit'] : 50;
         if ($limit) {
             return $entities->paginate($limit);
         }
@@ -239,52 +237,5 @@ abstract class BaseRepository
         }
 
         return $entity;
-    }
-
-    /**
-     * Find by condition .
-     *
-     * @param mixed $request
-     * @param array $relations
-     *
-     * @return object $entities
-     */
-    public function findByCondition($condition, $relations = [])
-    {
-        $entities = $this->model->select($this->model->selectable);
-
-        if (count($relations)) {
-            $entities = $entities->with($relations);
-        }
-
-        if (count($condition)) {
-            foreach ($condition as $key => $value) {
-                $entities = $this->search($entities, $key, $value);
-            }
-        }
-
-        return $entities;
-    }
-
-    /**
-     * Cache the query result.
-     *
-     * @param string $method
-     * @param mixed ...$params
-     *
-     * @return mixed cached query result
-     */
-    public function cache($method, ...$params)
-    {
-        if (!method_exists($this, $method)) {
-            throw new DDException("Method doesn't exist");
-        }
-        $name = Str::singular($this->model->getTable()) . '_' . $method;
-        $cacheByKey = config('constant.cache_expired.' . $name);
-        $expired = $cacheByKey ? $cacheByKey : config('constant.cache_expired.default', 0);
-
-        return cache()->remember($name, $expired, function () use ($method, $params) {
-            return $this->$method(...$params);
-        });
     }
 }

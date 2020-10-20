@@ -32,11 +32,6 @@ use Illuminate\Http\Response;
  */
 class RoleController extends Controller
 {
-    /**
-     * @var  roleRepository
-     */
-    protected $roleRepository;
-
     public function __construct(RoleRepository $roleRepository)
     {
         $this->roleRepository = $roleRepository;
@@ -168,7 +163,7 @@ class RoleController extends Controller
     public function show(Role $role)
     {
         if ($role->name == config('constant.admin_role')) {
-            return response()->json(['message' => 'Access denied']);
+            abort(403, 'Access denied');
         }
 
         $role = $this->roleRepository->detail($role, ['permissions']);
@@ -216,7 +211,7 @@ class RoleController extends Controller
     public function update(RoleRequest $request, Role $role)
     {
         if ($role->name == config('constant.admin_role')) {
-            return response()->json(['message' => 'Access denied']);
+            abort(403, 'Access denied');
         }
 
         $data = $request->only('name');
@@ -260,7 +255,7 @@ class RoleController extends Controller
     public function destroy(Role $role)
     {
         if ($role->name == config('constant.admin_role')) {
-            return response()->json(['message' => 'Access denied']);
+            abort(403, 'Access denied');
         }
 
         $this->roleRepository->delete($role);
