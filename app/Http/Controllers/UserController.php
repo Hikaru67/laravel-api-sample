@@ -80,7 +80,7 @@ class UserController extends Controller
     {
         $this->userRepository = $userRepository;
         $this->http = new Client([
-            'base_uri' => secure_url('/'),
+            'base_uri' => config('app.url'),
             'verify' => false,
         ]);
     }
@@ -108,14 +108,6 @@ class UserController extends Controller
      *                  property="data",
      *                  type="array",
      *                  @OA\Items(ref="#/components/schemas/user")
-     *              ),
-     *              @OA\Property(
-     *                  property="meta",
-     *                  ref="#/components/schemas/meta"
-     *              ),
-     *              @OA\Property(
-     *                  property="links",
-     *                  ref="#/components/schemas/links"
      *              ),
      *          ),
      *      ),
@@ -387,7 +379,6 @@ class UserController extends Controller
                     'client_secret' => $client->secret,
                     'refresh_token' => $request->refresh_token,
                 ],
-                'verify' => false,
             ]);
 
             return $response->getBody();

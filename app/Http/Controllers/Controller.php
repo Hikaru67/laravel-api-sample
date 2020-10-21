@@ -56,69 +56,6 @@ use Illuminate\Routing\Controller as BaseController;
  *  )
  *
  *  @OA\Schema(
- *      schema="meta",
- *      @OA\Property(
- *          property="current_page",
- *          type="number",
- *          example=1,
- *      ),
- *      @OA\Property(
- *          property="from",
- *          type="number",
- *          example=1,
- *      ),
- *      @OA\Property(
- *          property="last_page",
- *          type="number",
- *          example=1,
- *      ),
- *      @OA\Property(
- *          property="path",
- *          type="string",
- *          example="http://abc.com",
- *      ),
- *      @OA\Property(
- *          property="per_page",
- *          type="number",
- *          example=1,
- *      ),
- *      @OA\Property(
- *          property="to",
- *          type="number",
- *          example=1,
- *      ),
- *      @OA\Property(
- *          property="total",
- *          type="number",
- *          example=1,
- *      ),
- *  )
- *
- *  @OA\Schema(
- *      schema="links",
- *      @OA\Property(
- *          property="first",
- *          type="number",
- *          example=1,
- *      ),
- *      @OA\Property(
- *          property="last",
- *          type="number",
- *          example=1,
- *      ),
- *      @OA\Property(
- *          property="prev",
- *          type="number",
- *          example=1,
- *      ),
- *      @OA\Property(
- *          property="next",
- *          type="number",
- *          example=1,
- *      ),
- *  )
- *
- *  @OA\Schema(
  *      schema="list",
  *      @OA\Property(
  *          property="id",

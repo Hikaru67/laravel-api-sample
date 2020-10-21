@@ -61,14 +61,6 @@ class RoleController extends Controller
      *                  type="array",
      *                  @OA\Items(ref="#/components/schemas/role")
      *              ),
-     *              @OA\Property(
-     *                  property="meta",
-     *                  ref="#/components/schemas/meta"
-     *              ),
-     *              @OA\Property(
-     *                  property="links",
-     *                  ref="#/components/schemas/links"
-     *              ),
      *          ),
      *      ),
      *  )
