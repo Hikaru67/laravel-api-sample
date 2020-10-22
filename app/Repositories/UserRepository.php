@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\Menu;
+use App\Models\Role;
 use App\Models\User;
 use DB;
 
@@ -65,7 +66,7 @@ class UserRepository extends BaseRepository
      */
     public function getPermissions(User $user)
     {
-        $user->permissions = $user->hasRole(config('constant.admin_role')) ? Permission::all() : $user->getPermissionsViaRoles();
+        $user->permissions = $user->hasRole(Role::ADMIN) ? Permission::all() : $user->getPermissionsViaRoles();
     }
 
     /**
@@ -77,7 +78,7 @@ class UserRepository extends BaseRepository
      */
     public function getMenus(User $user)
     {
-        if ($user->hasRole(config('constant.admin_role')) || !config('constant.authorization')) {
+        if ($user->hasRole(Role::ADMIN) || !config('setting.authorization')) {
             return Menu::with('menus')->where('parent_id', 0)->orderBy('position', 'asc')->get();
         }
 

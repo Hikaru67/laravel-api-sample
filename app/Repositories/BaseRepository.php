@@ -19,7 +19,7 @@ abstract class BaseRepository
     public function __construct()
     {
         $this->app = new App();
-        $this->setModelClass();
+        $this->setModel();
     }
 
     abstract public function getModel();
@@ -27,7 +27,7 @@ abstract class BaseRepository
     /**
      * @return Model
      */
-    public function setModelClass()
+    public function setModel()
     {
         $model = $this->app->make($this->getModel());
         if (!$model instanceof Model) {

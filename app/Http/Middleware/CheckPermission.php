@@ -20,7 +20,7 @@ class CheckPermission
         $name = $request->route()->getName();
         if (
             $name
-            && config('constant.authorization')
+            && config('setting.authorization')
             && Auth::guard('api')->check()
             && !Auth::guard('api')->user()->can($name)
         ) {

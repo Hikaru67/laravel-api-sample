@@ -69,7 +69,7 @@ class RoleController extends Controller
     {
         $data = $request->all();
         if ($request->has('except_role')) {
-            $data['except_role'] = config('constant.admin_role');
+            $data['except_role'] = Role::ADMIN;
         }
         $roles = $this->roleRepository->list($data);
 
@@ -154,7 +154,7 @@ class RoleController extends Controller
      */
     public function show(Role $role)
     {
-        if ($role->name == config('constant.admin_role')) {
+        if ($role->name == Role::ADMIN) {
             abort(403, 'Access denied');
         }
 
@@ -202,7 +202,7 @@ class RoleController extends Controller
      */
     public function update(RoleRequest $request, Role $role)
     {
-        if ($role->name == config('constant.admin_role')) {
+        if ($role->name == Role::ADMIN) {
             abort(403, 'Access denied');
         }
 
@@ -246,7 +246,7 @@ class RoleController extends Controller
      */
     public function destroy(Role $role)
     {
-        if ($role->name == config('constant.admin_role')) {
+        if ($role->name == Role::ADMIN) {
             abort(403, 'Access denied');
         }
 

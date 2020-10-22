@@ -16,7 +16,7 @@ class RoleSeeder extends Seeder
     {
         app()[PermissionRegistrar::class]->forgetCachedPermissions();
 
-        $role = Role::updateOrCreate(['name' => config('constant.admin_role')]);
+        $role = Role::updateOrCreate(['name' => Role::ADMIN]);
 
         $actions = ['index', 'store', 'show', 'update', 'destroy'];
 

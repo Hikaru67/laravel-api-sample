@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Role;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 use Laravel\Passport\Passport;
@@ -35,7 +36,7 @@ class AuthServiceProvider extends ServiceProvider
         Passport::personalAccessTokensExpireIn(now()->addDays(1));
 
         Gate::before(function ($user, $ability) {
-            return $user->hasRole(config('constant.admin_role')) ? true : null;
+            return $user->hasRole(Role::ADMIN) ? true : null;
         });
     }
 }

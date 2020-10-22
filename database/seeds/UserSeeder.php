@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Permission;
@@ -32,6 +33,6 @@ class UserSeeder extends Seeder
             ]
         );
 
-        $user->syncRoles(config('constant.admin_role'));
+        $user->syncRoles(Role::ADMIN);
     }
 }
