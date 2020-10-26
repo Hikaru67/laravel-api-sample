@@ -315,6 +315,17 @@ class UserController extends Controller
      */
     public function login(AuthRequest $request)
     {
+        if (!config('setting.refresh_token')) {
+            if (!auth()->attempt(['email' => $request->email, 'password' => $request->password])) {
+                abort(401, 'Email/Password do not match');
+            }
+
+            $user = auth()->user();
+            $token = $user->createToken($user->email)->accessToken;
+
+            return response()->json(['access_token' => $token]);
+        }
+
         $client = $this->userRepository->getGrantClient();
         if (!$client) {
             abort(401, 'No client found');

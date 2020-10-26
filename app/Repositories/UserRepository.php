@@ -78,7 +78,7 @@ class UserRepository extends BaseRepository
      */
     public function getMenus(User $user)
     {
-        if ($user->hasRole(Role::ADMIN) || !config('setting.authorization')) {
+        if ($user->hasRole(Role::ADMIN)) {
             return Menu::with('menus')->where('parent_id', 0)->orderBy('position', 'asc')->get();
         }
 

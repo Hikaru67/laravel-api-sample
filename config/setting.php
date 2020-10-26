@@ -1,5 +1,5 @@
 <?php
 
 return [
-    'authorization' => env('AUTHORIZATION', false),
+    'refresh_token' => false,
 ];

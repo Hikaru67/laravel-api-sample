@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::group(['middleware' => ['auth:api', 'check.permission']], function () {
+Route::group(['middleware' => ['auth:api']], function () {
     // Resources
     Route::apiResource('role', 'RoleController');
     Route::apiResource('user', 'UserController');
@@ -33,7 +33,5 @@ Route::group(['middleware' => ['auth:api', 'check.permission']], function () {
 Route::group(['middleware' => ['guest:api']], function () {
     // Guest
     Route::post('login', 'UserController@login')->name('login');
+    Route::post('refresh', 'UserController@refresh');
 });
-
-// Refresh token
-Route::post('refresh', 'UserController@refresh');
