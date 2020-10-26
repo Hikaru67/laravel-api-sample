@@ -24,19 +24,19 @@ class MenuSeeder extends Seeder
 
         // user groups
         $userMenu = Menu::updateOrCreate(
-            ['title' => 'user.module'],
+            ['title' => 'module.user'],
             ['link' => '/user', 'position' => 1, 'icon' => 'user-friends',  'parent_id' => 0]
         );
 
         // role groups
         $roleMenu = Menu::updateOrCreate(
-            ['title' => 'role.module'],
+            ['title' => 'module.role'],
             ['link' => '/role', 'position' => 2, 'icon' => 'balance-scale',  'parent_id' => 0]
         );
 
         // menu groups
         $menuMenu = Menu::updateOrCreate(
-            ['title' => 'menu.module'],
+            ['title' => 'module.menu'],
             ['link' => '/menu', 'position' => 3,  'icon' => 'list',  'parent_id' => 0]
         );
     }
