@@ -22,22 +22,24 @@ class MenuSeeder extends Seeder
             Permission::updateOrCreate(['name' => 'menu.' . $key]);
         }
 
+        $position = 1;
+
         // user groups
         $userMenu = Menu::updateOrCreate(
             ['title' => 'module.user'],
-            ['link' => '/user', 'position' => 1, 'icon' => 'user-friends',  'parent_id' => 0]
+            ['link' => '/user', 'position' => $position++, 'icon' => 'user-friends',  'parent_id' => 0]
         );
 
         // role groups
         $roleMenu = Menu::updateOrCreate(
             ['title' => 'module.role'],
-            ['link' => '/role', 'position' => 2, 'icon' => 'balance-scale',  'parent_id' => 0]
+            ['link' => '/role', 'position' => $position++, 'icon' => 'balance-scale',  'parent_id' => 0]
         );
 
         // menu groups
         $menuMenu = Menu::updateOrCreate(
             ['title' => 'module.menu'],
-            ['link' => '/menu', 'position' => 3,  'icon' => 'list',  'parent_id' => 0]
+            ['link' => '/menu', 'position' => $position++,  'icon' => 'list',  'parent_id' => 0]
         );
     }
 }
