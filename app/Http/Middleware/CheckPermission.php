@@ -16,7 +16,7 @@ class CheckPermission
     public function handle($request, Closure $next)
     {
         $name = $request->route()->getName();
-        if ($name && auth()->guard('api')->check() && !auth()->guard('api')->user()->can($name)) {
+        if ($name && !auth()->guard('api')->user()->can($name)) {
             abort(403, 'You don\'t have permission to do this');
         }
 

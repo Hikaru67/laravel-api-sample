@@ -2,7 +2,6 @@
 
 namespace App\Repositories;
 
-use App\Exceptions\DDException;
 use Carbon\Carbon;
 use DB;
 use Illuminate\Container\Container as App;
@@ -31,7 +30,7 @@ abstract class BaseRepository
     {
         $model = $this->app->make($this->getModel());
         if (!$model instanceof Model) {
-            throw new DDException("Class {$this->getModel()} must be an instance of Illuminate\\Database\\Eloquent\\Model");
+            throw new \Exception("Class {$this->getModel()} must be an instance of Illuminate\\Database\\Eloquent\\Model");
         }
 
         return $this->model = $model;
