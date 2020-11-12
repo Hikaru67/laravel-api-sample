@@ -78,6 +78,18 @@ class UserRepository extends BaseRepository
      */
     public function getMenus(User $user)
     {
+        return Menu::with('menus')->where('parent_id', 0)->orderBy('position', 'asc')->get();
+    }
+
+    /**
+     * Get list user menus by role.
+     *
+     * @param User $user
+     *
+     * @return Menu
+     */
+    public function getMenusByRole(User $user)
+    {
         if ($user->hasRole(Role::ADMIN)) {
             return Menu::with('menus')->where('parent_id', 0)->orderBy('position', 'asc')->get();
         }

@@ -44,6 +44,25 @@ use Illuminate\Http\Response;
  *          example=1,
  *      ),
  *  )
+ *
+ *  @OA\Schema(
+ *      schema="list",
+ *      @OA\Property(
+ *          property="id",
+ *          type="number",
+ *          example=1,
+ *      ),
+ *      @OA\Property(
+ *          property="parent_id",
+ *          type="number",
+ *          example=1,
+ *      ),
+ *      @OA\Property(
+ *          property="position",
+ *          type="number",
+ *          example=1,
+ *      ),
+ *  )
  */
 class MenuController extends Controller
 {
