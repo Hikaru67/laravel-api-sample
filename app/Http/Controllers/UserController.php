@@ -328,24 +328,24 @@ class UserController extends Controller
 
         $client = $this->userRepository->getGrantClient();
         if (!$client) {
-            abort(401, 'No client found');
+            abort(404, 'No client found');
         }
 
-        try {
-            $response = $this->http->post('/oauth/token', [
-                'form_params' => [
-                    'grant_type' => 'password',
-                    'client_id' => $client->id,
-                    'client_secret' => $client->secret,
-                    'username' => $request->email,
-                    'password' => $request->password,
-                ],
-            ]);
+        $response = Request::create('oauth/token', 'post', [
+            'grant_type' => 'password',
+            'client_id' => $client->id,
+            'client_secret' => $client->secret,
+            'username' => $request->email,
+            'password' => $request->password,
+        ]);
 
-            return $response->getBody();
-        } catch (\Exception $e) {
+        $data = app()->handle($response);
+
+        if ($data->status() !== 200) {
             abort(401, 'Email/Password do not match');
         }
+
+        return $data->content();
     }
 
     /**
@@ -379,23 +379,23 @@ class UserController extends Controller
     {
         $client = $this->userRepository->getGrantClient();
         if (!$client) {
-            abort(401, 'No client found');
+            abort(404, 'No client found');
         }
 
-        try {
-            $response = $this->http->post('/oauth/token', [
-                'form_params' => [
-                    'grant_type' => 'refresh_token',
-                    'client_id' => $client->id,
-                    'client_secret' => $client->secret,
-                    'refresh_token' => $request->refresh_token,
-                ],
-            ]);
+        $response = Request::create('/oauth/token', 'post', [
+            'grant_type' => 'refresh_token',
+            'client_id' => $client->id,
+            'client_secret' => $client->secret,
+            'refresh_token' => $request->refresh_token,
+        ]);
 
-            return $response->getBody();
-        } catch (\Exception $e) {
+        $data = app()->handle($response);
+
+        if ($data->status() !== 200) {
             abort(403, 'Refresh token is invalid');
         }
+
+        return $data->content();
     }
 
     /**
