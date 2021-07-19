@@ -19,6 +19,9 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::apiResource('role', 'RoleController');
     Route::apiResource('user', 'UserController');
     Route::apiResource('menu', 'MenuController');
+    Route::apiResource('theses', 'ThesisController');
+    Route::apiResource('students', 'StudentController');
+    Route::apiResource('lecturers', 'LecturerController');
 
     // Authenticated
     Route::post('logout', 'UserController@logout');
