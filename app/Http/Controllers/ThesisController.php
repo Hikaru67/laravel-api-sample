@@ -8,6 +8,41 @@ use App\Http\Requests\ThesisRequest;
 use App\Models\Thesis;
 use Illuminate\Http\Request;
 
+/**
+ *  @OA\Tag(
+ *      name="Thesis",
+ *      description="Thesis Resource",
+ * )
+ *
+ *  @OA\Schema(
+ *      schema="theses",
+ *      @OA\Property(
+ *          property="name",
+ *          type="string",
+ *          example=1,
+ *      ),
+ *      @OA\Property(
+ *          property="description",
+ *          type="string",
+ *          example=1,
+ *      ),
+ *      @OA\Property(
+ *          property="attaches",
+ *          type="string",
+ *          example=1,
+ *      ),
+ *      @OA\Property(
+ *          property="student_id",
+ *          type="number",
+ *          example=1,
+ *      ),
+ *      @OA\Property(
+ *          property="lecturer_id",
+ *          type="number",
+ *          example=1,
+ *      ),
+ *  )
+ */
 class ThesisController extends Controller
 {
     public function __construct(ThesisRepository $thesisRepository)
