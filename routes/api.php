@@ -22,6 +22,8 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::apiResource('theses', 'ThesisController');
     Route::apiResource('students', 'StudentController');
     Route::apiResource('lecturers', 'LecturerController');
+    Route::get('list-lecturers', 'LecturerController@getAllLecturers');
+    Route::get('list-students', 'StudentController@getAllStudents');
 
     // Authenticated
     Route::post('logout', 'UserController@logout');

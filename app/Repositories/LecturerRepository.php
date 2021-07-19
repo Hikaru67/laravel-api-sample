@@ -35,4 +35,14 @@ class LecturerRepository extends BaseRepository
                 break;
         }
     }
+
+    /**
+     * Get list all data
+     *
+     * @return array
+     */
+    public function getAll()
+    {
+        return Lecturer::select(['id', 'name'])->get()->toArray();
+    }
 }

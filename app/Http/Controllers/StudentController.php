@@ -238,4 +238,37 @@ class StudentController extends Controller
 
         return response()->json(null, 204);
     }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @return  \Illuminate\Http\Response
+     *
+     *  @OA\Get(
+     *      path="/api/list-students",
+     *      tags={"Lecturer"},
+     *      operationId="getAllStudent",
+     *      summary="List All Student",
+     *      @OA\Parameter(ref="#/components/parameters/page"),
+     *      @OA\Parameter(ref="#/components/parameters/limit"),
+     *      @OA\Parameter(ref="#/components/parameters/sortField"),
+     *      @OA\Parameter(ref="#/components/parameters/sortOrder"),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Get all data",
+     *          @OA\JsonContent(
+     *              @OA\Property(
+     *                  property="data",
+     *                  type="array",
+     *                  @OA\Items(ref="#/components/schemas/students")
+     *              ),
+     *          ),
+     *      ),
+     *  )
+     */
+    public function getAllStudents()
+    {
+        return $this->studentRepository->getAll();
+    }
 }

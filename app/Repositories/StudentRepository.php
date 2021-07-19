@@ -35,4 +35,14 @@ class StudentRepository extends BaseRepository
                 break;
         }
     }
+
+    /**
+     * Get list all data
+     *
+     * @return array
+     */
+    public function getAll()
+    {
+        return Student::select(['id', 'name'])->get()->toArray();
+    }
 }
