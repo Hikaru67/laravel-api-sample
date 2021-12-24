@@ -494,4 +494,22 @@ class UserController extends Controller
 
         return response()->json(null, 204);
     }
+
+    /**
+     * Forgot password
+     *
+     * @param Request $request
+     */
+    public function forgotPassword(Request $request) {
+        $request->validate([
+            'email' => 'required'
+        ]);
+
+        $user = $this->userRepository->getUserByEmail($request->email);
+        if (!isset($user)) {
+            abort(401, 'Email does not match');
+        }
+
+        return $user;
+    }
 }

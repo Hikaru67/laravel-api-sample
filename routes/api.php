@@ -15,6 +15,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::group(['middleware' => ['auth:api']], function () {
+    // User
+    Route::post('update-password', 'UserController@updatePassword');
+
     // Resources
     Route::apiResource('role', 'RoleController');
     Route::apiResource('user', 'UserController');
@@ -22,6 +25,9 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::apiResource('theses', 'ThesisController');
     Route::apiResource('students', 'StudentController');
     Route::apiResource('lecturers', 'LecturerController');
+    Route::apiResource('categories');
+    // Route::apiResource('books');
+    Route::post('lend-book', 'BookController@lendBook');
     Route::get('list-lecturers', 'LecturerController@getAllLecturers');
     Route::get('list-students', 'StudentController@getAllStudents');
 
@@ -39,4 +45,6 @@ Route::group(['middleware' => ['guest:api']], function () {
     // Guest
     Route::post('login', 'UserController@login')->name('login');
     Route::post('refresh', 'UserController@refresh');
+    Route::post('forgot-password', 'UserController@forgotPassword');
+    Route::post('recover-password', 'UserController@recoverPassword');
 });

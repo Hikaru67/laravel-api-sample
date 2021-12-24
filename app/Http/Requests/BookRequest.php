@@ -4,12 +4,12 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UserRequest extends FormRequest
+class BookRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      *
-     * @return  bool
+     * @return bool
      */
     public function authorize()
     {
@@ -19,17 +19,15 @@ class UserRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return  array
+     * @return array
      */
     public function rules()
     {
-        $required = !$this->ujser ? 'required|' : '';
+        $required = !$this->book ? 'required|' : '';
 
         return [
-            'name' => $required . 'max:255',
-            'email' => $required . 'max:255|unique:users,email,' . ($this->user->id ?? 0),
-            'password' => $required . 'min:6|max:255',
-            // 'roles.*' => 'integer|min:0',
+            'title' => $required . 'max:255',
+            'category_id' => $required . 'integer',
         ];
     }
 }

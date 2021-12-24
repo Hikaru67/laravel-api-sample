@@ -149,4 +149,13 @@ class UserRepository extends BaseRepository
 
         return DB::table('oauth_clients')->where($condition)->first();
     }
+
+    /**
+     * Get user by email
+     *
+     * @param string $email
+     */
+    public function getUserByEmail($email) {
+        return $this->model->where('email', $email)->first();
+    }
 }
